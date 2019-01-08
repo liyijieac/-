@@ -1,0 +1,175 @@
+* {
+    padding: 0px;
+    margin: 0px;
+}
+.clear{
+    clear: both;
+}
+ul{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+}
+.articlecontent{
+    width: 1381.09px;
+    margin-top: 20px;
+}
+.container{
+    width: 1110px;
+    margin: 0px auto;
+}
+.left{
+    width: 735px;
+    position: relative;
+    left: 0px;
+    top: 0px;
+    float: left;
+}
+h1{
+    width: 741px;
+    height: 35.64px;
+    color: white;
+}
+.artinfo{
+    width: 714px;
+    height: 67.64px;
+    margin-top: 50px;
+    color: white;
+}
+.artinfo a{
+    color: deepskyblue;
+}
+.artinfo a:hover{
+    text-decoration: none;
+    color: red;
+}
+.desc{
+    width: 714px;
+    height: 57.64px;
+    color: antiquewhite;
+    font-size: 16px;
+}
+.content{
+    width: 714px;
+    height: 994.91px;
+    margin-left: 0px;
+    font-size: 16px;
+    color: white;
+}
+.authornews {
+    width: 314px;
+    height: 499.09px;
+    margin-top: 50px;
+    margin-left: 25px;
+    padding: 20px 20px 25px;
+    border: 1px solid #d3d7db;
+    color: white;
+    position: relative;
+    float: left;
+}
+.authornews .info {
+    height: 70px;
+    padding: 20px;
+}
+.authornews .info img {
+    float: left;
+    position: relative;
+    left: -15px;
+    top: -76px;
+    width: 70px;
+    height: 70px;
+    border-radius: 35px;
+    margin-right: 15px;
+}
+.authornews .info a {
+    font-size: 10px;
+    color: deepskyblue;
+    position: relative;
+    top: 5px;
+    right: 86px;
+}
+.authornews .info a:hover{
+    color: red;
+    text-decoration: none;
+}
+.authornews .info p {
+    color: white;
+    margin-top: 10px;
+    display: inline-block;
+    width: 140px;
+    position: relative;
+    top: 10px;
+    right: 86px;
+}
+.authornews .artlist {
+    padding: 20px;
+    font-size: 15px;
+}
+.authornews .artlist h4{
+    color: lightskyblue;
+}
+.artlist ul  li a{
+    color: #f6d6ff;
+}
+.artlist li a:hover{
+    text-decoration: none;
+}
+.authornews .butt {
+    height: 25px;
+    display: block;
+    border-radius: 4px;
+    background-color: lightskyblue;
+    color: #fff;
+    text-align: center;
+    padding: 2px;
+    font-size: 16px;
+}
+.authornews .butt:hover{
+    text-decoration: none;
+}
+.next {
+    width: 320px;
+    height: 100px;
+    border: 1px solid white;
+    margin-left: 25px;
+    position: relative;
+    top: 45px;
+    float: left;
+}
+.next .a {
+    color: white;
+    padding-top: 15px;
+    padding-left: 20px;
+    font-size: 15px;
+}
+.next span {
+    color: deepskyblue;
+    margin-right: 20px;
+    display: list-item;
+    list-style: none;
+    font-size: 13px;
+    position: relative;
+    left: 20px;
+    top: 0px;
+}
+.where {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    height: 16px;
+    color: #c3bed4;
+}
+.where a{
+    color: #c3bed4;
+}
+.where a:hover{
+    text-decoration: none;
+    color: cornflowerblue;
+}
+
+.quan{
+    margin-top: 40px;
+    width: 735px;
+    height: 45px;
+    color: #c3bed4;
+}

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="../../../Public/css/index.css" />
+	<link rel="stylesheet" href="../../../Public/css/footer.css" />
+	<link rel="stylesheet" href="../../../Public/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../../../Public/css/kefu.css" />
+	<link rel="stylesheet" href="../../../Public/css/content.css" />
+	<script type="text/javascript" src="../../../Public/js/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="../../../Public/js/dingbu.js"></script>
+	<script type="text/javascript" src="../../../Public/js/bootstrap-3.1.1.min.js"></script>
+	<script src="../../../Public/js/index.js"></script>
+	<style>
+		body {
+			background: #060e1b;
+			z-index: 1;
+		}
+
+		canvas {
+			position: fixed;
+			z-index: -2;
+		  	opacity: 0.5;
+		}
+
+	</style>
+</head>
+<body>
+	<canvas id="canvas"></canvas>
+	<script>
+	    "use strict";
+
+	    var canvas = document.getElementById('canvas'),
+	        ctx = canvas.getContext('2d'),
+	        w = canvas.width = window.innerWidth,
+	        h = canvas.height = window.innerHeight,
+
+	        hue = 217,
+	        stars = [],
+	        count = 0,
+	        maxStars = 1400;
+
+	    // Thanks @jackrugile for the performance tip! https://codepen.io/jackrugile/pen/BjBGoM
+	    // Cache gradient
+	    var canvas2 = document.createElement('canvas'),
+	        ctx2 = canvas2.getContext('2d');
+	    canvas2.width = 100;
+	    canvas2.height = 100;
+	    var half = canvas2.width/2,
+	        gradient2 = ctx2.createRadialGradient(half, half, 0, half, half, half);
+	    gradient2.addColorStop(0.025, '#fff');
+	    gradient2.addColorStop(0.1, 'hsl(' + hue + ', 61%, 33%)');
+	    gradient2.addColorStop(0.25, 'hsl(' + hue + ', 64%, 6%)');
+	    gradient2.addColorStop(1, 'transparent');
+
+	    ctx2.fillStyle = gradient2;
+	    ctx2.beginPath();
+	    ctx2.arc(half, half, half, 0, Math.PI * 2);
+	    ctx2.fill();
+
+	    // End cache
+
+	    function random(min, max) {
+	        if (arguments.length < 2) {
+	            max = min;
+	            min = 0;
+	        }
+
+	        if (min > max) {
+	            var hold = max;
+	            max = min;
+	            min = hold;
+	        }
+
+	        return Math.floor(Math.random() * (max - min + 1)) + min;
+	    }
+
+	    function maxOrbit(x,y) {
+	        var max = Math.max(x,y),
+	            diameter = Math.round(Math.sqrt(max*max + max*max));
+	        return diameter/2;
+	    }
+
+	    var Star = function() {
+
+	        this.orbitRadius = random(maxOrbit(w,h));
+	        this.radius = random(60, this.orbitRadius) / 12;
+	        this.orbitX = w / 2;
+	        this.orbitY = h / 2;
+	        this.timePassed = random(0, maxStars);
+	        this.speed = random(this.orbitRadius) / 50000;
+	        this.alpha = random(2, 10) / 10;
+
+	        count++;
+	        stars[count] = this;
+	    }
+
+	    Star.prototype.draw = function() {
+	        var x = Math.sin(this.timePassed) * this.orbitRadius + this.orbitX,
+	            y = Math.cos(this.timePassed) * this.orbitRadius + this.orbitY,
+	            twinkle = random(10);
+
+	        if (twinkle === 1 && this.alpha > 0) {
+	            this.alpha -= 0.05;
+	        } else if (twinkle === 2 && this.alpha < 1) {
+	            this.alpha += 0.05;
+	        }
+
+	        ctx.globalAlpha = this.alpha;
+	        ctx.drawImage(canvas2, x - this.radius / 2, y - this.radius / 2, this.radius, this.radius);
+	        this.timePassed += this.speed;
+	    }
+
+	    for (var i = 0; i < maxStars; i++) {
+	        new Star();
+	    }
+
+	    function animation() {
+	        ctx.globalCompositeOperation = 'source-over';
+	        ctx.globalAlpha = 0.8;
+	        ctx.fillStyle = 'hsla(' + hue + ', 64%, 6%, 1)';
+	        ctx.fillRect(0, 0, w, h)
+
+	        ctx.globalCompositeOperation = 'lighter';
+	        for (var i = 1, l = stars.length; i < l; i++) {
+	            stars[i].draw();
+	        };
+
+	        window.requestAnimationFrame(animation);
+	    }
+
+	    animation();
+	</script>
+
+	<!--返回顶部-->
+	<div class="side">
+		<ul>
+			<li>
+				<a href="#" target="_blank">
+					<div class="sidebox"><img src="Public/images/side_icon01.png">首页分享</div>
+				</a>
+			</li>
+			<li>
+				<a href="#" target="_blank">
+					<div class="sidebox"><img src="Public/images/side_icon04.png">QQ</div>
+				</a>
+			</li>
+			<li>
+				<a href="#" target="_blank">
+					<div class="sidebox"><img src="Public/images/weixin.png">微信</div>
+				</a>
+			</li>
+			<li>
+				<a href="#" target="_blank">
+					<div class="sidebox"><img src="Public/images/side_icon03.png">新浪微博</div>
+				</a>
+			</li>
+			<li style="border:none;">
+				<a href="javascript:goTop();" class="sidetop"><img src="Public/images/side_icon05.png"></a>
+			</li>
+		</ul>
+	</div>
+
+
+	<!--logo-->
+	<div class="logo">
+		<img src="../../../Public/images/welogo.png" />
+		<div class="denglu" style="float: right;">
+			<a href="#" style="display: inline-block;padding-left: 8px; padding-right: 8px;color: #fff;font-size: 16px;">登录</a>
+			<span></span>
+			<a href="#" style="display: inline-block;padding-left: 8px; padding-right: 8px;color: #fff;font-size: 16px;">注册</a>
+		</div>
+		<div class="logo3" style="float: right;width: 35px;height: 34px;margin-right:50px;background: #f3f2ee;margin-left: -2px;border-radius: 3px;"><img style="border: 0px;margin-left: 8px;margin-top: 9px;" class="logo3" src="../../../Public/images/SY/logo3.jpg" /></div>
+		<div class="input-group" style="float: right;">
+			<input type="text" class="form-control" placeholder="请输入您要搜索的内容">
+			<div class="input-group-btn"></div>
+		</div>
+	</div>
+
+	<hr style="margin-top: -15px;">
+
+	<div class="article">
+
+		<{foreach from=$Label item=$v}>
+
+	<!--内容-->
+		<div class="articlecontent">
+
+			<div class="container">
+
+				<!--左侧-->
+				<div class="left">
+
+					<!-- 标题 -->
+					<h1><{$v.title}></h1>
+					<p class="artinfo">
+						<a href="#"><{$v.author}></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;..&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><{$v.add_time}></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ..&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><{$v.biaoqian}></span>
+					</p>
+					<p class="desc">
+						<{$v.title}>
+					</p>
+					<!-- 文章内容 -->
+					<div class="content">
+
+						<{$v.content}>
+
+						<div class="where">
+							<span>出处：</span><a href="#">https://www.zybuluo.com/zhuanxu/note/1104086</a>
+						</div>
+
+						<div class="quan">
+							<span>版权申明：内容来源网络，版权归原创者所有。除非无法确认，我们都会标明作者及出处，如有侵权烦请告知，我们会立即删除并表示歉意。谢谢。</span>
+						</div>
+
+					</div>
+
+
+
+				</div>
+
+				<!--右侧-->
+					<div class="authornews">
+						<div class="info">
+
+							<img src="../../../Public/images/author.jpg" alt="">
+
+							<a href="#" target="_blank">yanyan</a><br>
+
+							<p>共发表9篇</p>
+						</div>
+
+						<hr>
+
+						<div class="artlist">
+
+							<h4>最近内容</h4>
+
+							<ul>
+								<li>
+									<!-- 序号 -->
+									<!-- <span></span> -->
+									<!-- 文字，标题 -->
+									<a href="#" class="title">这些神秘的“增长黑客”，也说不清“用户增长”的定律 | 这个职业不太冷</a>
+								</li>
+
+								<span class="qwe">10小时前&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+								<span class="jkl">职场漫谈</span>
+
+								<li>
+									<!-- 序号 -->
+									<!-- <span></span> -->
+									<!-- 文字，标题 -->
+									<a href="" class="title">网信布局人工智能，星阵围棋vs柯洁大战在即</a>
+								</li>
+
+
+								<span class="qwe">2018-04-19</span>
+								<span class="jkl">人工智能</span>
+
+								<li>
+									<!-- 序号 -->
+									<!-- <span></span> -->
+									<!-- 文字，标题 -->
+									<a href="" class="title">36氪专访 | 邓柯：第三代区块链，将无缝连接实体经济</a>
+								</li>
+
+
+								<span class="qwe">2018-04-14</span>
+								<span class="jkl">区块链</span>
+
+							</ul>
+
+						</div>
+
+						<a href="" class="butt">阅读更多内容,狠戳这里</a>
+					</div>
+
+					<div class="next">
+
+						<h4 class="a">下一篇</h4>
+
+						<span>魅族管理层打架、高层被质疑贪腐时，黄章去哪儿了？</span>
+
+					</div>
+
+
+			</div>
+
+		</div>
+
+		<{/foreach}>
+
+
+		<hr>
+	<!--底部-->
+	<div class="footer">
+		<p class="textbox">相关频道：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;全栈一班&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;传智资讯&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;聚码小道&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;十组消息</p>
+		<p class="di">
+			京公网卡100100100011号 互联网信息许可证 ©2018 czxy 使用聚码必要协议 聚码协议
+		</p>
+	</div>
+
+
+</body>
+</html>
